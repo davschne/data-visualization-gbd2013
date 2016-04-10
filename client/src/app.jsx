@@ -9,7 +9,7 @@ var dataModel = Object.create(null);
 Papa.SCRIPT_PATH = "papaparse.min.js";
 
 // load data from CSV
-Papa.parse("data.csv", {
+Papa.parse("data/data.csv", {
   worker: true,
   header: true,
   download: true,
