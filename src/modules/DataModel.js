@@ -6,7 +6,7 @@ export default function(data, locations) {
     },
     getDatum(location, age_group, sex, year, metric) {
       // retrieve data point and convert to percentage
-      return data[location][age_group][sex][year][metric] * 100;
+      return data[location][age_group][sex][year][metric];
     },
     getMean({
       location: location,
@@ -25,14 +25,9 @@ export default function(data, locations) {
         obese.push(this.getDatum(location, age_group, sex, year, "obese"));
       }
 
-      console.log("overweight:", overweight);
-      console.log("obese:", obese)
-
       function sum(acc, curr) {
         return acc + curr;
       }
-
-      console.log("avg:", overweight.reduce(sum, 0) / overweight.length);
 
       return {
         overweight : overweight.reduce(sum, 0) / overweight.length,

@@ -5,7 +5,7 @@ export default function(React, d3BarChart) {
       return {
         contents: this.props,
         dimensions: {
-          width: 500,
+          width: 800,
           height: 500
         }
       };
