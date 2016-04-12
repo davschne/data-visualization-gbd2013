@@ -22,7 +22,7 @@ export default function(React, dataModel, BarChart) {
         output.type = locationData.type;
         return output;
       });
-      console.log("data:", data)
+      data.sort( (a, b) => { return b.overweight - a.overweight; } );
       return data;
     },
     render() {
