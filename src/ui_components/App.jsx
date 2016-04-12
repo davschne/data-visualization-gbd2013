@@ -1,4 +1,4 @@
-export default function(React, GraphController) {
+export default function(React, BarChartCtrl) {
   const App = React.createClass({
     getInitialState() {
       return ({
@@ -11,7 +11,7 @@ export default function(React, GraphController) {
     },
     render() {
       return (
-        <GraphController
+        <BarChartCtrl
           location={this.state.location}
           age_group={this.state.age_group}
           sex={this.state.sex}

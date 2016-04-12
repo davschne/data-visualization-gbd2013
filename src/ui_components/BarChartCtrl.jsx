@@ -1,6 +1,6 @@
-export default function(React, dataModel, Graph) {
+export default function(React, dataModel, BarChart) {
 
-  const GraphController = React.createClass({
+  const BarChartCtrl = React.createClass({
     getInitialState() {
       return ({ location : this.getLocationData(this.props.location) });
     },
@@ -27,11 +27,11 @@ export default function(React, dataModel, Graph) {
     },
     render() {
 
-      // call the data model here to construct the data structure passed to Graph
+      // call the data model here to construct the data structure passed to BarChart
       var data = this.assembleData();
 
       return (
-        <Graph name={this.state.location.name}
+        <BarChart name={this.state.location.name}
           type={this.state.location.type}
           data={data}
         />
@@ -39,5 +39,5 @@ export default function(React, dataModel, Graph) {
     }
   });
 
-  return GraphController;
+  return BarChartCtrl;
 };
