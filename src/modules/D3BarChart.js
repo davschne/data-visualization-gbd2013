@@ -35,17 +35,21 @@ export default function(d3) {
             return `translate(${i * barWidth}, 0)`;
           });
 
+      // percentage overweight
       g.append("rect")
           .attr("y", (d) => { return y(d.overweight); })
           .attr("height", (d) => { return dimensions.height - y(d.overweight); })
-          .attr("width", barWidth - 1)
-          .style("fill", "red");
+          .attr("width", barWidth - (barWidth * 0.1))
+          .style("fill", "#45C3ED");
 
       g.append("text")
           .attr("x", barWidth / 2)
           .attr("y", (d) => { return y(d.overweight) + 3; })
           .attr("dy", "0.75em")
-          .text((d) => { return d.name; });
+          .attr("text-anchor", "middle")
+          .attr("fill", "#FFF")
+          .style("font", "0.8em sans-serif")
+          .text((d) => { return `${d.overweight.toFixed()}%`; });
 
       g.exit()
           .remove();
