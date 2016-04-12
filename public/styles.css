@@ -1,0 +1,60 @@
+.bar-chart {
+  font-size: 1rem;
+}
+
+.bar-chart__container {}
+
+.bar-chart__axis {
+  font: 0.8em sans-serif;
+}
+
+.bar-chart__axis--x {}
+
+.bar-chart__axis path {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.bar-chart__axis--x line {
+  display: none;
+}
+
+.bar-chart__axis--y line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.bar-chart__axis--y {}
+
+.bar-chart__location {}
+
+.bar-chart__bar {}
+
+.bar-chart__bar:hover {
+  fill: #1184AB;
+}
+
+.bar-chart__value {
+  font: 0.8em sans-serif;
+  text-anchor: middle;
+  fill: #FFF;
+}
+
+.bar-chart__overweight {
+}
+
+.bar-chart__bar--overweight {
+  fill: #45C3ED;
+}
+
+.bar-chart__value--overweight {}
+
+.bar-chart__obese {}
+
+.bar-chart__bar--obese {
+  fill: #3C4ED6;
+}
+
+.bar-chart__value--obese {}

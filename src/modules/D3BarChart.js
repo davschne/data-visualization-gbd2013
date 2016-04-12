@@ -43,13 +43,13 @@ export default function(d3) {
       var yAxis = d3.svg.axis()
           .scale(y)
           .orient("left")
-          .ticks(5, "%");
+          .ticks(4, "%");
 
       var barWidth = width / data.length;
 
       // x axis
       svg.append("g")
-          .attr("class", "bar-chart__x-axis")
+          .attr("class", "bar-chart__axis bar-chart__axis--x")
           .attr("transform", `translate(0, ${height})`)
           .call(xAxis)
         .selectAll(".tick text")
@@ -57,14 +57,14 @@ export default function(d3) {
 
       // y axis
       svg.append("g")
-          .attr("class", "bar-chart__y-axis")
+          .attr("class", "bar-chart__axis bar-chart__axis--y")
           .call(yAxis);
 
-      var locations = svg.selectAll(".bar-chart__location--group")
+      var locations = svg.selectAll(".bar-chart__location")
           .data(data, (d) => { return d.name }); // index data by location name
 
       locations.enter().append("g")
-          .attr("class", "bar-chart__location--group")
+          .attr("class", "bar-chart__location")
           .attr("transform", (d, i) => {
             return `translate(${x(d.name)}, 0)`;
           });
@@ -72,34 +72,29 @@ export default function(d3) {
       locations.exit()
           .remove();
 
-      createBars(locations, "overweight", "#45C3ED");
-      createBars(locations, "obese", "#3C4ED6");
+      createBars(locations, "overweight");
+      createBars(locations, "obese");
 
-
-      function createBars(parent, metric, color) {
+      function createBars(parent, metric) {
 
         var group = locations.append("g")
-            .attr("class", `bar-chart__${metric}--group`);
+            .attr("class", `bar-chart__${metric}`);
 
         // bar
         group.append("rect")
-            .attr("class", `bar-chart__${metric}--bar`)
+            .attr("class", `bar-chart__bar bar-chart__bar--${metric}`)
             .attr("y", (d) => { return y(d[metric]); })
             .attr("height", (d) => {
               return height - y(d[metric]);
             })
-            .attr("width", x.rangeBand())
-            .style("fill", color);
+            .attr("width", x.rangeBand());
 
         // text
         group.append("text")
-            .attr("class", `bar-chart__${metric}--text`)
+            .attr("class", `bar-chart__value bar-chart__value--${metric}`)
             .attr("x", x.rangeBand() / 2)
             .attr("y", (d) => { return y(d[metric]) + 3; })
             .attr("dy", "0.75em")
-            .attr("text-anchor", "middle")
-            .attr("fill", "#FFF")
-            .style("font", "0.8em sans-serif")
             .text((d) => { return `${(d[metric] * 100).toFixed()}%`; });
       }
 
