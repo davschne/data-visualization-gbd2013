@@ -27,32 +27,48 @@ export default function(d3) {
 
       var barWidth = dimensions.width / data.length;
 
-      var g = d3.select(DOMNode).select("svg").selectAll("g")
+      var locations = d3.select(DOMNode).select("svg")
+        .selectAll(".bar-chart__location--group")
           .data(data, (d) => { return d.name }); // index data by location name
 
-      g.enter().append("g")
+      locations.enter().append("g")
+          .attr("class", "bar-chart__location--group")
           .attr("transform", (d, i) => {
             return `translate(${i * barWidth}, 0)`;
           });
 
-      // percentage overweight
-      g.append("rect")
-          .attr("y", (d) => { return y(d.overweight); })
-          .attr("height", (d) => { return dimensions.height - y(d.overweight); })
-          .attr("width", barWidth - (barWidth * 0.1))
-          .style("fill", "#45C3ED");
-
-      g.append("text")
-          .attr("x", barWidth / 2)
-          .attr("y", (d) => { return y(d.overweight) + 3; })
-          .attr("dy", "0.75em")
-          .attr("text-anchor", "middle")
-          .attr("fill", "#FFF")
-          .style("font", "0.8em sans-serif")
-          .text((d) => { return `${d.overweight.toFixed()}%`; });
-
-      g.exit()
+      locations.exit()
           .remove();
+
+      createBars(locations, "overweight", "#45C3ED");
+      createBars(locations, "obese", "#3C4ED6");
+
+      function createBars(parent, description, color) {
+
+        var group = locations.append("g")
+            .attr("class", `bar-chart__${description}--group`);
+
+        // bar
+        group.append("rect")
+            .attr("class", `bar-chart__${description}--bar`)
+            .attr("y", (d) => { return y(d[description]); })
+            .attr("height", (d) => {
+              return dimensions.height - y(d[description]);
+            })
+            .attr("width", barWidth - (barWidth * 0.1))
+            .style("fill", color);
+
+        // text
+        group.append("text")
+            .attr("class", `bar-chart__${description}--text`)
+            .attr("x", barWidth / 2)
+            .attr("y", (d) => { return y(d[description]) + 3; })
+            .attr("dy", "0.75em")
+            .attr("text-anchor", "middle")
+            .attr("fill", "#FFF")
+            .style("font", "0.8em sans-serif")
+            .text((d) => { return `${d[description].toFixed()}%`; });
+      }
     },
     destroy() {}
   }
