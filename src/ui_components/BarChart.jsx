@@ -3,7 +3,6 @@ export default function(React, d3BarChart) {
   const BarChart = React.createClass({
     getInitialState() {
       return {
-        contents: this.props,
         dimensions: {
           width: 800,
           height: 500
@@ -15,14 +14,20 @@ export default function(React, d3BarChart) {
       return false;
     },
     componentDidMount() {
-      d3BarChart.create(this.node, this.state.dimensions)
-        .update(this.state.dimensions, this.state.contents);
+      d3BarChart.create(this.node);
+      this.update(this.props);
     },
     componentWillUpdate() {
-      d3BarChart.update(this.node, this.state.contents);
+      this.update(this.props);
+    },
+    componentWillReceiveProps(nextProps) {
+      this.update(nextProps);
     },
     componentWillUnmount() {
       d3BarChart.destroy();
+    },
+    update(props) {
+      d3BarChart.update(this.state.dimensions, props);
     },
     render() {
       return (

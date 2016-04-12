@@ -9,7 +9,7 @@ export default function(data, locations) {
       return data[location][age_group][sex][year][metric];
     },
     getMean({
-      location: location,
+      loc_id: loc_id,
       age_group: age_group,
       sex: sex,
       start_year: start_year,
@@ -21,8 +21,8 @@ export default function(data, locations) {
       let obese      = [];
 
       for (let year = start_year; year <= end_year; year++) {
-        overweight.push(this.getDatum(location, age_group, sex, year, "overweight"));
-        obese.push(this.getDatum(location, age_group, sex, year, "obese"));
+        overweight.push(this.getDatum(loc_id, age_group, sex, year, "overweight"));
+        obese.push(this.getDatum(loc_id, age_group, sex, year, "obese"));
       }
 
       function sum(acc, curr) {

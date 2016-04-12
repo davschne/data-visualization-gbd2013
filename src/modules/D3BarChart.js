@@ -4,20 +4,19 @@ export default function(d3) {
 
   return {
 
-    create(node, dimensions) {
+    create(node) {
 
       svg = d3.select(node).append("svg")
           .attr("class", "bar-chart")
-          .attr("width", dimensions.width)
-          .attr("height", dimensions.height);
 
       return this;
     },
-    update(dimensions, state) {
+    update(dimensions, props) {
 
-      const name = state.name;
-      const type = state.type
-      const data = state.data;
+      const name = props.name;
+      const type = props.type
+      const data = props.data;
+      const setLocation = props.setLocation;
 
       const margin = {
         top: 20, right: 0, bottom: 100, left: 50
@@ -26,7 +25,9 @@ export default function(d3) {
       const width = dimensions.width - margin.left - margin.right;
       const height = dimensions.height - margin.top - margin.bottom;
 
-      svg.attr("transform", `translate(${margin.left}, ${margin.top})`);
+      svg.attr("transform", `translate(${margin.left}, ${margin.top})`)
+          .attr("width", dimensions.width)
+          .attr("height", dimensions.height);
 
       var x = d3.scale.ordinal()
           .domain(data.map( (d) => { return d.name; } ))
@@ -45,9 +46,10 @@ export default function(d3) {
           .orient("left")
           .ticks(4, "%");
 
-      var barWidth = width / data.length;
+      // remove previous axes
+      svg.selectAll(".bar-chart__axis").remove();
 
-      // x axis
+      // append x-axis
       svg.append("g")
           .attr("class", "bar-chart__axis bar-chart__axis--x")
           .attr("transform", `translate(0, ${height})`)
@@ -55,7 +57,7 @@ export default function(d3) {
         .selectAll(".tick text")
           .call(wrap, x.rangeBand());
 
-      // y axis
+      // append y-axis
       svg.append("g")
           .attr("class", "bar-chart__axis bar-chart__axis--y")
           .call(yAxis);
@@ -67,17 +69,18 @@ export default function(d3) {
           .attr("class", "bar-chart__location")
           .attr("transform", (d, i) => {
             return `translate(${x(d.name)}, 0)`;
-          });
+          })
+          .call(createBars, "overweight")
+          .call(createBars, "obese")
+          // clicking on location group displays sub-locations
+          .on("click", (d) => { setLocation(d.loc_id); } )
 
       locations.exit()
           .remove();
 
-      createBars(locations, "overweight");
-      createBars(locations, "obese");
+      function createBars(selection, metric) {
 
-      function createBars(parent, metric) {
-
-        var group = locations.append("g")
+        var group = selection.append("g")
             .attr("class", `bar-chart__${metric}`);
 
         // bar
@@ -96,6 +99,8 @@ export default function(d3) {
             .attr("y", (d) => { return y(d[metric]) + 3; })
             .attr("dy", "0.75em")
             .text((d) => { return `${(d[metric] * 100).toFixed()}%`; });
+
+        return selection;
       }
 
       function wrap(text, width) {
