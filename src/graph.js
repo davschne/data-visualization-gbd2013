@@ -33,18 +33,4 @@ export default function() {
 //       .text((d) => { return d.overweight; });
 // }
 
-
-// d3.csv(SOURCE_URL + "/data.csv", (data) => { console.log(data); });
-// .row((row) => { console.log(row); });
-
-// const App = React.createClass({
-//   render() {
-//     return (
-//       <p>Hello, world!</p>
-//     );
-//   }
-// });
-
-// ReactDOM.render(<App/>, document.getElementById('app'));
-
 }

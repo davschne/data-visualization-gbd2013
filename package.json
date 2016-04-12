@@ -2,10 +2,10 @@
   "name": "data-visualization-gbd2013",
   "version": "0.1.0",
   "description": "A visualization of data in the Global Burden of Disease Study 2013.",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rm public/bundle.js && browserify -t [ babelify --presets [ es2015 react ] ] src/app.jsx -o public/bundle.js"
+    "build": "rm public/bundle.js && browserify -t [ babelify --presets [ es2015 react ] ] src/client.jsx -o public/bundle.js"
   },
   "repository": {
     "type": "git",
