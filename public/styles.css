@@ -35,10 +35,13 @@
 }
 
 .controls {
+  width: 1200px;
+  margin: 0 auto;
+  background-color: #BAC9CF;
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-left: 50px;
+  justify-content: center;
 }
 
 .selector {
@@ -109,11 +112,16 @@
   margin: 0;
 }
 
-.bar-chart {}
+.bar-chart {
+  background-color: #8A979C;
+}
 
 .bar-chart__container {
   width: 1200px;
   margin: 0 auto;
+}
+
+.svg {
 }
 
 .bar-chart__axis {

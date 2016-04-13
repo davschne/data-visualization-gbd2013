@@ -72,14 +72,22 @@ export default function(d3) {
           .attr("class", "bar-chart__location")
           .call(createBars, "overweight")
           .call(createBars, "obese")
+          .attr("transform", (d, i) => {
+            return `translate(${x(d.name)}, 0)`;
+          })
           // clicking on location group displays sub-locations
           .on("click", (d) => { setLocation(d.loc_id); } );
 
       // update selection
-      locations.attr("transform", (d, i) => {
+      locations
+        .transition()
+          .duration(750)
+          .sort( (a, b) => { return b.overweight - a.overweight; } )
+          .attr("transform", (d, i) => {
             return `translate(${x(d.name)}, 0)`;
-          })
-          .call(updateBars, "overweight")
+          });
+
+      locations.call(updateBars, "overweight")
           .call(updateBars, "obese");
 
       // exit selection
@@ -118,7 +126,7 @@ export default function(d3) {
         group.selectAll(`.bar-chart__value--${metric}`)
             .attr("x", x.rangeBand() / 2)
             .attr("y", (d) => { return y(d[metric]) + 3; })
-            .attr("dy", "0.75em")
+            .attr("dy", "-0.75em")
             .text((d) => { return `${(d[metric] * 100).toFixed()}%`; });
 
         return selection;
