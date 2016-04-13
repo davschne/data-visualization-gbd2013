@@ -21,6 +21,7 @@ export default function(React, BarChartCtrl, Selector, LocLevel) {
     },
     zoomOutToLevel(level) {
       // level 0 is zoomed out all the way (i.e. Global)
+      if (level > this.state.loc_ancestry.length - 1) return;
       var target_loc = this.state.loc_ancestry[level];
       var ancestry   = this.state.loc_ancestry.slice(0, level + 1);
       this.setState({
@@ -60,11 +61,13 @@ export default function(React, BarChartCtrl, Selector, LocLevel) {
             <Selector
               type="age-group"
               description="age group"
+              current={this.state.age_group}
               options={age_group_options}
             />
             <Selector
               type="sex"
               description="sex"
+              current={this.state.sex}
               options={sex_options}
             />
             <LocLevel

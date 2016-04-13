@@ -1,5 +1,5 @@
 .description {
-  margin-left: 50px
+  margin-left: 50px;
   font-size: 1rem;
 }
 
@@ -68,7 +68,7 @@
   cursor: pointer;
 }
 
-.selector__button:hover {
+.selector__button--selected {
   background-color: #2A7A59;
 }
 
@@ -99,7 +99,7 @@
   cursor: pointer;
 }
 
-.location-level__button:hover {
+.location-level__button--selected {
   background-color: #2A7A59;
 }
 

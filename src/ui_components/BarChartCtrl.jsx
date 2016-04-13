@@ -37,7 +37,7 @@ export default function(React, dataModel, BarChart) {
 
     // wraps this.props.zoomIn (checking if location is valid)
     setLocation(target) {
-      if (dataModel.hasLocation(target)) {
+      if (dataModel.getLocationData(target).contains) {
         this.props.zoomIn(target);
       }
     },

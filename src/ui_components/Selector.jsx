@@ -10,7 +10,7 @@ export default function(React) {
         return (
           <button
             key={i}
-            className={`selector__button selector__button--${this.props.type}`}
+            className={`selector__button selector__button--${this.props.type} ${option.label == this.props.current ? "selector__button--selected" : ""}`}
             onClick={this.handleClick.bind(this, i)}>
             {option.label}
           </button>
