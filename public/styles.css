@@ -58,3 +58,7 @@
 }
 
 .bar-chart__value--obese {}
+
+.tick {
+  transform: rotate(-70);
+}

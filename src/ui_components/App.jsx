@@ -30,16 +30,21 @@ export default function(React, BarChartCtrl, Selector) {
         loc_ancestry: ancestry
       });
     },
-    setAgeGroup(age_group) {
-      this.setState({ age_group: age_group });
-    },
+
     render() {
 
       var age_group_options = ["children", "adults"].map( (label) => {
         return {
           label: label,
-          fn: () => { this.setAgeGroup(label); }
+          fn: () => { this.setState({ age_group: label }); }
         };
+      });
+
+      var sex_options = ["female", "both", "male"].map( (label) => {
+        return {
+          label: label,
+          fn: () => { this.setState({ sex: label }); }
+        }
       });
 
       return (
@@ -55,6 +60,10 @@ export default function(React, BarChartCtrl, Selector) {
           <Selector
             name="age-group-selector"
             options={age_group_options}
+          />
+          <Selector
+            name="sex-selector"
+            options={sex_options}
           />
         </div>
       );

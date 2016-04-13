@@ -57,6 +57,7 @@ export default function(d3) {
         .selectAll(".tick text")
           .call(wrap, x.rangeBand());
 
+
       // append y-axis
       svg.append("g")
           .attr("class", "bar-chart__axis bar-chart__axis--y")
