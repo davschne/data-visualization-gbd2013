@@ -4,7 +4,7 @@ export default function(React, d3BarChart) {
     getInitialState() {
       return {
         dimensions: {
-          width: 800,
+          width: 1200,
           height: 500
         }
       };

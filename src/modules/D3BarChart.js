@@ -65,16 +65,22 @@ export default function(d3) {
       var locations = svg.selectAll(".bar-chart__location")
           .data(data, (d) => { return d.name }); // index data by location name
 
+      // enter selection
       locations.enter().append("g")
           .attr("class", "bar-chart__location")
-          .attr("transform", (d, i) => {
-            return `translate(${x(d.name)}, 0)`;
-          })
           .call(createBars, "overweight")
           .call(createBars, "obese")
           // clicking on location group displays sub-locations
-          .on("click", (d) => { setLocation(d.loc_id); } )
+          .on("click", (d) => { setLocation(d.loc_id); } );
 
+      // update selection
+      locations.attr("transform", (d, i) => {
+            return `translate(${x(d.name)}, 0)`;
+          })
+          .call(updateBars, "overweight")
+          .call(updateBars, "obese");
+
+      // exit selection
       locations.exit()
           .remove();
 
@@ -85,7 +91,21 @@ export default function(d3) {
 
         // bar
         group.append("rect")
-            .attr("class", `bar-chart__bar bar-chart__bar--${metric}`)
+            .attr("class", `bar-chart__bar bar-chart__bar--${metric}`);
+
+        // text
+        group.append("text")
+            .attr("class", `bar-chart__value bar-chart__value--${metric}`);
+
+        return selection;
+      }
+
+      function updateBars(selection, metric) {
+
+        var group = selection.selectAll(`.bar-chart__${metric}`);
+
+        // bar
+        group.selectAll(`.bar-chart__bar--${metric}`)
             .attr("y", (d) => { return y(d[metric]); })
             .attr("height", (d) => {
               return height - y(d[metric]);
@@ -93,8 +113,7 @@ export default function(d3) {
             .attr("width", x.rangeBand());
 
         // text
-        group.append("text")
-            .attr("class", `bar-chart__value bar-chart__value--${metric}`)
+        group.selectAll(`.bar-chart__value--${metric}`)
             .attr("x", x.rangeBand() / 2)
             .attr("y", (d) => { return y(d[metric]) + 3; })
             .attr("dy", "0.75em")

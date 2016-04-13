@@ -5,7 +5,6 @@ export default function(React, dataModel, BarChart) {
     getInitialState() {
       return {
         loc_id     : this.props.loc_id,
-        parent_loc : null
       };
     },
 
@@ -25,12 +24,13 @@ export default function(React, dataModel, BarChart) {
         });
         var locationData = dataModel.getLocationData(sub_loc_id);
         output.loc_id     = sub_loc_id;
-        output.parent_loc = location.loc_id;
         output.name       = locationData.name;
         output.type       = locationData.type;
 
         return output;
       });
+
+      console.log("assembleData:", data);
 
       data.sort( (a, b) => { return b.overweight - a.overweight; } );
 

@@ -30,11 +30,18 @@ export default function(React, BarChartCtrl, Selector) {
         loc_ancestry: ancestry
       });
     },
-    // setLocation(target_loc) {
-    //   console.log("setLocation:", target_loc)
-
-    // },
+    setAgeGroup(age_group) {
+      this.setState({ age_group: age_group });
+    },
     render() {
+
+      var age_group_options = ["children", "adults"].map( (label) => {
+        return {
+          label: label,
+          fn: () => { this.setAgeGroup(label); }
+        };
+      });
+
       return (
         <div className="app__container">
           <BarChartCtrl
@@ -45,7 +52,10 @@ export default function(React, BarChartCtrl, Selector) {
             end_year={this.state.end_year}
             zoomIn={this.zoomIn}
           />
-          <Selector options={[ { label: "my selector", fn: () => { console.log("hi"); } } ]}/>
+          <Selector
+            name="age-group-selector"
+            options={age_group_options}
+          />
         </div>
       );
     }
