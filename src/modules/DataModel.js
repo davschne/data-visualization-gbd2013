@@ -1,6 +1,9 @@
 export default function(data, locations) {
 
   return {
+    hasLocation(id) {
+      return !!locations[id];
+    },
     getLocationData(id) {
       return locations[id];
     },

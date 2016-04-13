@@ -3,9 +3,16 @@
   "version": "0.1.0",
   "description": "A visualization of data in the Global Burden of Disease Study 2013.",
   "main": "server.js",
+  "watch": {
+    "build": {
+      "patterns": ["src"],
+      "extensions": "js, jsx"
+    }
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rm public/bundle.js && browserify -t [ babelify --presets [ es2015 react ] ] src/client.jsx -o public/bundle.js"
+    "build": "browserify -t [ babelify --presets [ es2015 react ] ] src/client.jsx -o public/bundle.js",
+    "watch": "npm-watch"
   },
   "repository": {
     "type": "git",
@@ -28,6 +35,7 @@
     "react-dom": "^15.0.0"
   },
   "devDependencies": {
-    "babyparse": "^0.4.5"
+    "babyparse": "^0.4.5",
+    "npm-watch": "^3.7.0"
   }
 }

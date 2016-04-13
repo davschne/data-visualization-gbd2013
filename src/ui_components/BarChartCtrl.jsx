@@ -2,6 +2,17 @@ export default function(React, dataModel, BarChart) {
 
   const BarChartCtrl = React.createClass({
 
+    getInitialState() {
+      return {
+        loc_id     : this.props.loc_id,
+        parent_loc : null
+      };
+    },
+
+    componentWillReceiveProps(nextProps) {
+      this.setState( { loc_id : nextProps.loc_id } );
+    },
+
     assembleData(location) {
 
       var data = location.contains.map((sub_loc_id) => {
@@ -13,14 +24,26 @@ export default function(React, dataModel, BarChart) {
           end_year: this.props.end_year
         });
         var locationData = dataModel.getLocationData(sub_loc_id);
-        output.loc_id = sub_loc_id;
-        output.name   = locationData.name;
-        output.type   = locationData.type;
+        output.loc_id     = sub_loc_id;
+        output.parent_loc = location.loc_id;
+        output.name       = locationData.name;
+        output.type       = locationData.type;
+
         return output;
       });
+
       data.sort( (a, b) => { return b.overweight - a.overweight; } );
 
       return data;
+    },
+
+    // wraps this.props.zoomIn (checking if location is valid)
+    setLocation(target) {
+      console.log("setLocationIfValid:", target);
+      if (dataModel.hasLocation(target)) {
+        console.log("hasLocation: true")
+        this.props.zoomIn(target);
+      }
     },
 
     render() {
@@ -34,7 +57,7 @@ export default function(React, dataModel, BarChart) {
           name={location.name}
           type={location.type}
           data={data}
-          setLocation={this.props.setLocation}
+          setLocation={this.setLocation}
         />
       );
     }
