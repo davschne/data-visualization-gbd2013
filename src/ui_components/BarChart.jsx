@@ -5,7 +5,7 @@ export default function(React, d3BarChart) {
       return {
         dimensions: {
           width: 1200,
-          height: 500
+          height: 400
         }
       };
     },
@@ -31,8 +31,7 @@ export default function(React, d3BarChart) {
     },
     render() {
       return (
-        <div className="bar-chart__container" ref={(c) => this.node = c}>
-        </div>
+        <div className="bar-chart__container" ref={(c) => this.node = c}></div>
       );
     }
   });

@@ -48,13 +48,16 @@ export default function(React, dataModel, BarChart) {
       var data = this.assembleData(location);
 
       return (
-        <BarChart
-          loc_id={this.props.loc_id}
-          name={location.name}
-          type={location.type}
-          data={data}
-          setLocation={this.setLocation}
-        />
+        <div>
+          <h2 className="location-name">{location.name}</h2>
+          <BarChart
+            loc_id={this.props.loc_id}
+            name={location.name}
+            type={location.type}
+            data={data}
+            setLocation={this.setLocation}
+          />
+        </div>
       );
     }
   });

@@ -6,7 +6,7 @@ export default function(React) {
     },
     render() {
 
-      var levels = ["global", "super-regions", "regions", "countries"].slice(0, this.props.level + 1);
+      var levels = ["super-regions", "regions", "countries"].slice(0, this.props.level + 1);
 
       var buttons = levels.map( (level, i) => {
         return (
