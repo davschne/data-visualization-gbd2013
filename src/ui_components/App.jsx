@@ -1,4 +1,4 @@
-export default function(React, BarChartCtrl) {
+export default function(React, BarChartCtrl, Selector) {
   const App = React.createClass({
     getInitialState() {
       return ({
@@ -45,7 +45,7 @@ export default function(React, BarChartCtrl) {
             end_year={this.state.end_year}
             zoomIn={this.zoomIn}
           />
-
+          <Selector options={[ { label: "my selector", fn: () => { console.log("hi"); } } ]}/>
         </div>
       );
     }
