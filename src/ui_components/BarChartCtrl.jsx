@@ -30,6 +30,7 @@ export default function(React, dataModel, BarChart) {
         return output;
       });
 
+      // pre-sort the data by overweight prevalence
       data.sort( (a, b) => { return b.overweight - a.overweight; } );
 
       return data;

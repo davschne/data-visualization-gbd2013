@@ -65,24 +65,21 @@ export default function(d3) {
           .call(yAxis);
 
       var locations = svg.selectAll(".bar-chart__location")
-          .data(data, (d) => { return d.name }); // index data by location name
+          .data(data, (d) => { return d.loc_id }); // index data by location id
 
       // enter selection
       locations.enter().append("g")
           .attr("class", "bar-chart__location")
           .call(createBars, "overweight")
           .call(createBars, "obese")
-          .attr("transform", (d, i) => {
-            return `translate(${x(d.name)}, 0)`;
-          })
           // clicking on location group displays sub-locations
           .on("click", (d) => { setLocation(d.loc_id); } );
 
       // update selection
       locations
+        // animate transition to...
         .transition()
           .duration(750)
-          .sort( (a, b) => { return b.overweight - a.overweight; } )
           .attr("transform", (d, i) => {
             return `translate(${x(d.name)}, 0)`;
           });
@@ -112,22 +109,28 @@ export default function(d3) {
 
       function updateBars(selection, metric) {
 
-        var group = selection.selectAll(`.bar-chart__${metric}`);
+        // (.select implicitly binds data from the parent element to the child)
+        var group = selection.select(`.bar-chart__${metric}`)
+          .transition()
+            .duration(750)
+            .attr("transform", (d) => {
+              return `translate(0, ${y(d[metric])})`;
+            });
 
         // bar
-        group.selectAll(`.bar-chart__bar--${metric}`)
-            .attr("y", (d) => { return y(d[metric]); })
+        group.select(`.bar-chart__bar--${metric}`)
             .attr("height", (d) => {
               return height - y(d[metric]);
             })
             .attr("width", x.rangeBand());
 
         // text
-        group.selectAll(`.bar-chart__value--${metric}`)
+        group.select(`.bar-chart__value--${metric}`)
             .attr("x", x.rangeBand() / 2)
-            .attr("y", (d) => { return y(d[metric]) + 3; })
+            .attr("y", 3)
+            .attr("dx", metric == "overweight" ? "-0.8em" : "0.8em")
             .attr("dy", "-0.75em")
-            .text((d) => { return `${(d[metric] * 100).toFixed()}%`; });
+            .text((d) => { return `${Math.round(d[metric] * 100)}%`; });
 
         return selection;
       }
