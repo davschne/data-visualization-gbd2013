@@ -1,3 +1,71 @@
+.controls {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.selector {
+  font-size: 1rem;
+  margin-right: 3em;
+}
+
+.selector__label {
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.selector__button-container {
+  display: flex;
+  flex-direction: column;
+  height: 6em;
+}
+
+.selector__button {
+  background-color: #3EB080;
+  color: #FFF;
+  font-size: 1em;
+  flex: 1;
+  width: 8em;
+  font-family: sans-serif;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.selector__button:hover {
+  background-color: #2A7A59;
+}
+
+.location-level {
+  font-size: 1rem;
+  margin-right: 3em;
+}
+
+.location-level__label {
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.location-level__button-container {
+  display: flex;
+  flex-direction: column;
+  height: 6em;
+}
+
+.location-level__button {
+  background-color: #3EB080;
+  color: #FFF;
+  font-size: 1em;
+  height: 2em;
+  width: 10em;
+  font-family: sans-serif;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.location-level__button:hover {
+  background-color: #2A7A59;
+}
+
 .bar-chart {
   font-size: 1rem;
 }
@@ -28,7 +96,9 @@
 
 .bar-chart__axis--y {}
 
-.bar-chart__location {}
+.bar-chart__location {
+  cursor: pointer;
+}
 
 .bar-chart__bar {}
 
@@ -59,6 +129,6 @@
 
 .bar-chart__value--obese {}
 
-.tick {
+/*.tick text {
   transform: rotate(-70);
-}
+}*/

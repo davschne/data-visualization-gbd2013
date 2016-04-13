@@ -19,7 +19,7 @@ export default function(d3) {
       const setLocation = props.setLocation;
 
       const margin = {
-        top: 20, right: 0, bottom: 100, left: 50
+        top: 20, right: 0, bottom: 150, left: 50
       };
 
       const width = dimensions.width - margin.left - margin.right;
@@ -55,8 +55,9 @@ export default function(d3) {
           .attr("transform", `translate(0, ${height})`)
           .call(xAxis)
         .selectAll(".tick text")
-          .call(wrap, x.rangeBand());
-
+          .call(wrap, x.rangeBand())
+          // .attr("dx", "0.5em")
+          // .attr("transform", `translate(${ x.rangeBand() / 2 }, 0) rotate(50, ${ -(x.rangeBand() / 2) }, 0)`);
 
       // append y-axis
       svg.append("g")

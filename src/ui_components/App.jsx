@@ -13,7 +13,6 @@ export default function(React, BarChartCtrl, Selector, LocLevel) {
     zoomIn(target_loc) {
       var ancestry = this.state.loc_ancestry.slice();
       ancestry.push(target_loc)
-      console.log(ancestry)
       this.setState({
         loc_id: target_loc,
         // add current location to the stack
@@ -22,7 +21,6 @@ export default function(React, BarChartCtrl, Selector, LocLevel) {
     },
     zoomOutToLevel(level) {
       // level 0 is zoomed out all the way (i.e. Global)
-      console.log("zoomOutToLevel:", level)
       var target_loc = this.state.loc_ancestry[level];
       var ancestry   = this.state.loc_ancestry.slice(0, level + 1);
       this.setState({
@@ -58,18 +56,22 @@ export default function(React, BarChartCtrl, Selector, LocLevel) {
             end_year={this.state.end_year}
             zoomIn={this.zoomIn}
           />
-          <LocLevel
-            level={this.state.loc_ancestry.length - 1}
-            zoomOutToLevel={this.zoomOutToLevel}
-          />
-          <Selector
-            type="age-group"
-            options={age_group_options}
-          />
-          <Selector
-            type="sex"
-            options={sex_options}
-          />
+          <div className="controls">
+            <Selector
+              type="age-group"
+              description="age group"
+              options={age_group_options}
+            />
+            <Selector
+              type="sex"
+              description="sex"
+              options={sex_options}
+            />
+            <LocLevel
+              level={this.state.loc_ancestry.length - 1}
+              zoomOutToLevel={this.zoomOutToLevel}
+            />
+          </div>
         </div>
       );
     }

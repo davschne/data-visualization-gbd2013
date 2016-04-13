@@ -2,7 +2,6 @@ export default function(React) {
 
   const Selector = React.createClass({
     handleClick(i) {
-      console.log("handleClick:", this.props.options[i]);
       this.props.options[i].fn();
     },
     render() {
@@ -20,7 +19,8 @@ export default function(React) {
 
       return (
         <div className={`selector selector--${this.props.type}`}>
-          {buttons}
+          <p className="selector__label">{this.props.description}</p>
+          <div className="selector__button-container">{buttons}</div>
         </div>
       );
     }

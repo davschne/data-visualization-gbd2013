@@ -2,7 +2,6 @@ export default function(React) {
 
   const LocLevel = React.createClass({
     handleClick(i) {
-      console.log("handleClick:", i);
       this.props.zoomOutToLevel(i);
     },
     render() {
@@ -20,7 +19,12 @@ export default function(React) {
         );
       });
 
-      return <div className={`location-level`}>{buttons}</div>;
+      return (
+        <div className={`location-level`}>
+          <p className="location-level__label">zoom level</p>
+          <div className="location-level__button-container">{buttons}</div>
+        </div>
+      );
     }
   });
 

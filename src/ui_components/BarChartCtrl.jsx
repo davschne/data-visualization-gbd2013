@@ -30,8 +30,6 @@ export default function(React, dataModel, BarChart) {
         return output;
       });
 
-      console.log("assembleData:", data);
-
       data.sort( (a, b) => { return b.overweight - a.overweight; } );
 
       return data;
@@ -39,9 +37,7 @@ export default function(React, dataModel, BarChart) {
 
     // wraps this.props.zoomIn (checking if location is valid)
     setLocation(target) {
-      console.log("setLocationIfValid:", target);
       if (dataModel.hasLocation(target)) {
-        console.log("hasLocation: true")
         this.props.zoomIn(target);
       }
     },
