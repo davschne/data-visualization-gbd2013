@@ -11,16 +11,20 @@ export default function(React) {
         return (
           <button
             key={i}
-            className={`selector__button`}
+            className={`selector__button selector__button--${this.props.type}`}
             onClick={this.handleClick.bind(this, i)}>
             {option.label}
           </button>
         );
       });
 
-      return <div className={`selector`}>{buttons}</div>;
+      return (
+        <div className={`selector selector--${this.props.type}`}>
+          {buttons}
+        </div>
+      );
     }
   });
 
   return Selector;
-}
+};

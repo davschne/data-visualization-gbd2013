@@ -13,6 +13,7 @@ import loadD3BarChart from "./modules/D3BarChart.js";
 
 // import factories for React components
 import loadSelector     from "./ui_components/Selector.jsx";
+import loadLocLevel     from "./ui_components/LocLevel.jsx";
 import loadBarChart     from "./ui_components/BarChart.jsx";
 import loadBarChartCtrl from "./ui_components/BarChartCtrl.jsx";
 import loadApp          from "./ui_components/App.jsx";
@@ -23,8 +24,9 @@ const d3BarChart = loadD3BarChart(d3);
 
 // create React components
 const Selector     = loadSelector(React);
+const LocLevel     = loadLocLevel(React);
 const BarChart     = loadBarChart(React, d3BarChart);
 const BarChartCtrl = loadBarChartCtrl(React, dataModel, BarChart);
-const App          = loadApp(React, BarChartCtrl, Selector);
+const App          = loadApp(React, BarChartCtrl, Selector, LocLevel);
 
 ReactDOM.render(<App/>, document.getElementById('app'));

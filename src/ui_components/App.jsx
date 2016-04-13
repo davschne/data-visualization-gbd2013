@@ -1,4 +1,4 @@
-export default function(React, BarChartCtrl, Selector) {
+export default function(React, BarChartCtrl, Selector, LocLevel) {
   const App = React.createClass({
     getInitialState() {
       return ({
@@ -22,6 +22,7 @@ export default function(React, BarChartCtrl, Selector) {
     },
     zoomOutToLevel(level) {
       // level 0 is zoomed out all the way (i.e. Global)
+      console.log("zoomOutToLevel:", level)
       var target_loc = this.state.loc_ancestry[level];
       var ancestry   = this.state.loc_ancestry.slice(0, level + 1);
       this.setState({
@@ -57,12 +58,16 @@ export default function(React, BarChartCtrl, Selector) {
             end_year={this.state.end_year}
             zoomIn={this.zoomIn}
           />
+          <LocLevel
+            level={this.state.loc_ancestry.length - 1}
+            zoomOutToLevel={this.zoomOutToLevel}
+          />
           <Selector
-            name="age-group-selector"
+            type="age-group"
             options={age_group_options}
           />
           <Selector
-            name="sex-selector"
+            type="sex"
             options={sex_options}
           />
         </div>
