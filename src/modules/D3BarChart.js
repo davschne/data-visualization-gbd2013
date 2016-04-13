@@ -19,7 +19,7 @@ export default function(d3) {
       const setLocation = props.setLocation;
 
       const margin = {
-        top: 20, right: 0, bottom: 150, left: 50
+        top: 20, right: 0, bottom: 80, left: 50
       };
 
       const width = dimensions.width - margin.left - margin.right;

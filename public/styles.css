@@ -1,7 +1,44 @@
+.description {
+  margin-left: 50px
+  font-size: 1rem;
+}
+
+.description__heading {
+  font-size: 2em;
+  font-weight: bold;
+}
+
+.legend {
+  font-size: 1rem;
+  margin-left: 50px;
+}
+
+.legend__heading {
+  font-size: 1.1em;
+  margin: 1em 0;
+}
+
+.legend__field {
+  font-size: 1em;
+  line-height: 2em;
+  width: 10em;
+  text-align: center;
+  color: #FFF;
+}
+
+.legend__field--overweight {
+  background-color: #45C3ED;
+}
+
+.legend__field--obese {
+  background-color: #3C4ED6;
+}
+
 .controls {
   display: flex;
   flex-direction: row;
   align-items: center;
+  margin-left: 50px;
 }
 
 .selector {
