@@ -1,6 +1,7 @@
 export default function(d3) {
 
   var svg;
+  var g;
 
   return {
 
@@ -8,6 +9,7 @@ export default function(d3) {
 
       svg = d3.select(node).append("svg")
           .attr("class", "bar-chart")
+      g   = svg.append("g");
 
       return this;
     },
@@ -25,9 +27,11 @@ export default function(d3) {
       const width = dimensions.width - margin.left - margin.right;
       const height = dimensions.height - margin.top - margin.bottom;
 
-      svg.attr("transform", `translate(${margin.left}, ${margin.top})`)
-          .attr("width", dimensions.width)
-          .attr("height", dimensions.height);
+      svg.attr("height", dimensions.height).attr("width", dimensions.width);
+
+      g.attr("transform", `translate(${margin.left}, ${margin.top})`)
+          .attr("width", width)
+          .attr("height", height);
 
       var x = d3.scale.ordinal()
           .domain(data.map( (d) => { return d.name; } ))
@@ -47,10 +51,10 @@ export default function(d3) {
           .ticks(4, "%");
 
       // remove previous axes
-      svg.selectAll(".bar-chart__axis").remove();
+      g.selectAll(".bar-chart__axis").remove();
 
       // append x-axis
-      svg.append("g")
+      g.append("g")
           .attr("class", "bar-chart__axis bar-chart__axis--x")
           .attr("transform", `translate(0, ${height})`)
           .call(xAxis)
@@ -60,11 +64,11 @@ export default function(d3) {
           // .attr("transform", `translate(${ x.rangeBand() / 2 }, 0) rotate(50, ${ -(x.rangeBand() / 2) }, 0)`);
 
       // append y-axis
-      svg.append("g")
+      g.append("g")
           .attr("class", "bar-chart__axis bar-chart__axis--y")
           .call(yAxis);
 
-      var locations = svg.selectAll(".bar-chart__location")
+      var locations = g.selectAll(".bar-chart__location")
           .data(data, (d) => { return d.loc_id }); // index data by location id
 
       // enter selection
